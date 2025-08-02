@@ -1,7 +1,52 @@
+
 function isReallyString(val) {
     return typeof val === "string" || val instanceof String;
   }
 
+
+/**
+ * Throws if val is not of the expected type.
+ * @param {*} val - The value to check.
+ * @param {string} expectedType - "string", "number", "array", "function".
+ * @param {string} errorMessage - Custom error message if the check fails, if no or invalid error message is provided , will set to default val is not type of expected type.
+ */
+function typeGuard(val, expectedType, errorMessage){
+
+    if (!(typeof errorMessage === "string" || errorMessage instanceof String)){
+        console.warn("Warning : Error message Provided is Invalid, Default Message is Set");
+        errorMessage = `Error : ${val} is not type of ${expectedType}`
+
+    }
+
+    const throwError = () => { throw new TypeError(errorMessage); }
+
+    switch (expectedType.toLowerCase()) {
+
+        case "string":
+            const isString = (typeof val === "string") || (val instanceof String);
+            if (!isString) throwError();
+            break;
+
+        case "number":
+            val =  val instanceof Number ? val.valueOf() : val  // converting from Number object  to Primitive Value as needed.
+            const isNumber = (Number.isFinite(val));
+            if (!isNumber) throwError();
+            break;
+
+        case "array":
+            const isArray = Array.isArray(val) ;
+            if (!isArray) throwError();
+            break;
+        
+        case "function":
+            const isFunction = (typeof val === "function");
+            if (!isFunction) throwError();
+            break;
+    
+        default:
+            throw new Error(`Error: Invalid Expected Type ${expectedType}`);
+    }
+}
 
 /**
  * Adds new elements to a list element.
@@ -11,6 +56,7 @@ function isReallyString(val) {
  * @returns {void}
  */
 function addListElement(listId, newElement, numbersValid=false){
+    
     if (!isReallyString(listId)){
         console.error("Error : List Id Must Be A String");
         return;
