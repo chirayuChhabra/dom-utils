@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="DOM Utils Demo - A demonstration of DOM manipulation utilities">
+    <meta name="author" content="chirayuChhabra">
+    <title>DOM Utils Demo</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body class="background">
+    <header class="header">
+        <h1 class="heading" id="main-heading">DOM Utils Demo</h1>
+        <p class="subtitle">A practical demonstration of DOM manipulation utilities</p>
+    </header>
+
+    <main class="container">
+        <section class="section" id="lists-section" aria-labelledby="lists-heading">
+            <h2 id="lists-heading" class="section-heading">List Examples</h2>
+
+            <article class="list-container">
+                <h3>Top Tech Companies</h3>
+                <ol class="list" id="tech-companies">
+                    <li class="list-item" id="company-1">Apple</li>
+                    <li class="list-item" id="company-2">Alphabet (Google)</li>
+                    <li class="list-item" id="company-3">Microsoft</li>
+                    <li class="list-item" id="company-4">Amazon</li>
+                    <li class="list-item" id="company-5">Meta (Facebook)</li>
+                </ol>
+            </article>
+
+            <article class="list-container">
+                <h3>Popular Web Browsers</h3>
+                <ul class="list" id="browsers">
+                    <li class="list-item" id="browser-1">Google Chrome</li>
+                    <li class="list-item" id="browser-2">Mozilla Firefox</li>
+                    <li class="list-item" id="browser-3">Apple Safari</li>
+                    <li class="list-item" id="browser-4">Microsoft Edge</li>
+                    <li class="list-item" id="browser-5">Opera</li>
+                </ul>
+            </article>
+        </section>
+
+        <section class="section" id="content-section" aria-labelledby="content-heading">
+            <h2 id="content-heading" class="section-heading">Content Examples</h2>
+
+            <article class="content-article">
+                <h3>About This Demo</h3>
+                <p class="paragraph" id="intro-paragraph">
+                    This page demonstrates various DOM manipulation utilities. The content is organized into logical sections
+                    to showcase different HTML elements and their manipulation.
+                </p>
+            </article>
+
+            <article class="content-article">
+                <h3>Features</h3>
+                <p class="paragraph" id="features-paragraph">
+                    The utilities provided can help with common DOM operations such as element selection,
+                    content manipulation, event handling, and more. These tools are designed to be lightweight
+                    and efficient for modern web development.
+                </p>
+            </article>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>2025 DOM Utils Demo.</p>
+    </footer>
+    <script src="scripts/demo.js" type="module"></script>
+</body>
+</html>
