@@ -1,4 +1,5 @@
-export function typeGuard(val, expectedType, errorMessage=undefined, acceptsEmptyObj = false, returnBoolOnError = true) {
+
+export function typeGuard(val, expectedType, errorMessage=undefined, allowEmptyValues = false, returnBoolOnError = true) {
     if (typeof errorMessage !== "string" && !(errorMessage instanceof String)) {
         console.warn("Warning: Invalid error message. Default message will be used.");
         errorMessage = `Error: ${val} is not of type ${expectedType}`;
@@ -11,7 +12,7 @@ export function typeGuard(val, expectedType, errorMessage=undefined, acceptsEmpt
     switch (expectedType.toLowerCase()) {
         case "string": {
             const isString = typeof val === "string" || val instanceof String;
-            const conclusion = acceptsEmptyObj ? isString : isString && val.trim() !== "";
+            const conclusion = allowEmptyValues ? isString : isString && val.trim() !== "";
             if (!conclusion) return throwError();
             return true;
         }
@@ -25,7 +26,7 @@ export function typeGuard(val, expectedType, errorMessage=undefined, acceptsEmpt
 
         case "array": {
             const isArray = Array.isArray(val);
-            const conclusion = acceptsEmptyObj ? isArray : isArray && val.length !== 0;
+            const conclusion = allowEmptyValues ? isArray : isArray && val.length !== 0;
             if (!conclusion) return throwError();
             return true;
         }
@@ -33,6 +34,13 @@ export function typeGuard(val, expectedType, errorMessage=undefined, acceptsEmpt
         case "function": {
             const isFunction = typeof val === "function";
             if (!isFunction) return throwError();
+            return true;
+        }
+
+        case "object": {
+            const isObject = Object.prototype.toString.call(val) === "[object Object]";  // it just checks for what class the object really is Say an array obj will reflect [object Array]
+            const conclusion = allowEmptyValues ? isObject : isObject && Object.keys(val).length !== 0;
+            if (!conclusion) return throwError();
             return true;
         }
 
