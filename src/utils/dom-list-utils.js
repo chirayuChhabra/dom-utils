@@ -1,6 +1,8 @@
 import {typeGuard} from './validation-utils.js';
 
-export function addListElement(listId, newElement, numbersValid=false){
+import {createNewDomElement} from './dom-creation-utils.js';
+
+export function addListElement(listId, newElement, numbersValid=false) {
 
     typeGuard(listId, "string", "Error: List Id must be a String");
 
@@ -11,25 +13,48 @@ export function addListElement(listId, newElement, numbersValid=false){
         return;
     }
 
-    const elementsToAdd = Array.isArray(newElement) ? newElement : [newElement]
 
-    if (elementsToAdd.length === 0){
+    if (typeGuard(newElement, "object")) {
+
+        for (const element in newElement) {
+            const elementId = newElement[element];
+
+            try{
+                const domElement = createNewDomElement("li", element, elementId );
+                list.append(domElement);
+
+            }catch(error){
+                console.warn(`Warning : Skipping ${element} element with id ${elementId} as its not a valid entry`);
+            }
+
+        }
+        return;
+    }
+
+
+    const elementsToAdd = Array.isArray(newElement)
+        ? newElement
+        : [newElement];
+
+    if (elementsToAdd.length === 0) {
         console.error("Error : Invalid Input New Element Must Be String Or An Array Of Length > 0");
     }
 
 
-    elementsToAdd.forEach( (element, index) => {
-        const newListElement = document.createElement("li");
-        const workingElement = (numbersValid && Number.isFinite(element)) ? `${element}` : element
+    elementsToAdd.forEach((element, index) => {
 
-        typeGuard(workingElement, "string", `Log : Element no ${index+1} skipped as it's not a Valid string , Element : ${workingElement}`)
+        const textContent = (numbersValid && typeGuard(element, "number")) ? `${element}` : element
 
-        newListElement.innerText = workingElement;
-        list.appendChild(newListElement);
+        try{
+            const domElement = createNewDomElement("li", textContent)
+            list.append(domElement)
 
+        } catch(error){
+            console.warn(`Warning : Element no ${index + 1} skipped as it's not a Valid string , Element : ${textContent}`)
+        }
     })
-}
 
+}
 
 
 export function removeListElement(listId, referenceType , elementsReference){
