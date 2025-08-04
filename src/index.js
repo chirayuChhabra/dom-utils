@@ -3,6 +3,7 @@
 
 export * from './utils/dom-list-utils.js';
 export * from './utils/validation-utils.js';
+export * from './utils/dom-creation-utils.js';
 
 // You can add any additional top-level exports or functionality here
 

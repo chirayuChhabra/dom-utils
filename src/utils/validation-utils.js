@@ -1,13 +1,18 @@
 
-export function typeGuard(val, expectedType, errorMessage=undefined, allowEmptyValues = false, returnBoolOnError = true) {
-    if (typeof errorMessage !== "string" && !(errorMessage instanceof String)) {
+export function typeGuard(val, expectedType, errorMessage=undefined, allowEmptyValues = false) {
+    // If errorMessage is provided, we'll throw an error on failure
+    // If no errorMessage, we'll return a boolean
+    const shouldThrow = errorMessage !== undefined;
+    
+    // Set the default error message if not provided or invalid
+    if (shouldThrow && (typeof errorMessage !== "string" && !(errorMessage instanceof String))) {
         console.warn("Warning: Invalid error message. Default message will be used.");
         errorMessage = `Error: ${val} is not of type ${expectedType}`;
     }
 
-    const throwError = returnBoolOnError
-        ? () => false
-        : () => { throw new TypeError(errorMessage); };
+    const throwError = shouldThrow 
+        ? () => { throw new TypeError(errorMessage) }
+        : () => false;
 
     switch (expectedType.toLowerCase()) {
         case "string": {
