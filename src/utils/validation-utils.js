@@ -49,7 +49,13 @@ export function typeGuard(val, expectedType, errorMessage=undefined, allowEmptyV
             return true;
         }
 
-        default:
+        case "boolean":{
+            const isBool = typeof val === "boolean";
+            if (!isBool) return throwError();
+        }
+
+        default: {
             throw new Error(`Error: Invalid expected type "${expectedType}"`);
+        }
     }
 }

@@ -2,6 +2,7 @@ import {typeGuard} from './validation-utils.js';
 
 import {createNewDomElement} from './dom-creation-utils.js';
 
+
 export function addListElement(listId, newElement, numbersValid=false) {
 
     typeGuard(listId, "string", "Error: List Id must be a String");

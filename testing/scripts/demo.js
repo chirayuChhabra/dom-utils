@@ -14,10 +14,10 @@ let companies = {
 
 // TEST The follwoing one by one : 
 
-
-
+//
+//
 // addListElement("tech-companies", companies);
-
+//
 // addListElement("browsers", ["Mullvad", 402, "Tor"], true);
 
 
